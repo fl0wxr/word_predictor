@@ -73,7 +73,7 @@ For effective training of word predictors, it is crucial to have a large dataset
 The resulting preprocessed dataset is split to 835,460 training instances (90% of the dataset) and 92,828 validation instances (10% of the dataset). Each feature vector input has 3 token-steps in total. It should be noted that the dataset is imbalanced as it can be observed in the following frequency plot.
 
 <div align="center">
-    <img width="60%" src="<image source>">
+    <img width="60%" src="https://raw.githubusercontent.com/fl0wxr/word_predictor/master/datasets/ENGSTR1.png">
 </div>
 
 ## Demo rnn1_ep40_t1
@@ -108,7 +108,7 @@ Top 5 predicted words:
 This shows the 5 most likely continuations suggested by `rnn1_ep40_t1`.
 
 <div align="center">
-    <img width="100%" src="image source">
+    <img width="100%" src="https://raw.githubusercontent.com/fl0wxr/word_predictor/master/training/ENGSTR1/rnn1_ep40_t1.png">
 </div>
 
 The accuracy of the model on the validation set is ~13.8%, which is worse than the maximum ~17.7% at epoch 4. Αfter that epoch, overfitting makes its presence noticeable. It took approximately 2 hours and 41 minutes to complete the training.
