@@ -8,7 +8,7 @@ import plot
 
 
 def c_numericalize_str(seq, vocab_itos):
-    '''
+    """
     Description:
         Converts a sequence of string-tokens to a sequence of vocabulary-index-tokens, while maintaining their order. It replicates the sequence, whilst replacing the string tokens with index tokens with respect to a vocabulary.
         - Advantages:
@@ -20,8 +20,8 @@ def c_numericalize_str(seq, vocab_itos):
         <vocab_itos>: Type: <list[<str>]>. The list containing all the vocabularies string-tokens at the position with index equal to vocabulary-index-token. Must include the <unk> character in the beginning.
 
     Returns:
-        <enc_seq>: Type: <list[<int>]>. Contains <seq> with each string replaced with the vocabularies index.
-    '''
+        <enc_seq>: Type: <list[<int>]>. Contains all the members of <seq> where each string replaced with the vocabularies index.
+    """
 
     ## Load the shared library
     lib = ctypes.CDLL('../lib/str2num.so')
@@ -83,9 +83,9 @@ def build_vocab(seq_string):
     """
     Description:
         Generates a vocabulary object with respect to the decreasing order of token-frequency.
-    
+
     Inputs:
-        <seq_string>: Type: list. Contains the list containing the dataset's tokens.
+        <seq_string>: Type: <list[<str>]>. Contains the dataset's tokens.
 
     Outputs:
         <vocab_>: Type: <torchtext.vocab.Vocab>.
@@ -131,7 +131,7 @@ class text_dataset:
     def __init__(self):
 
         def parse_local_raw_data(raw_dataset_path):
-        
+
             with open(raw_dataset_path, 'r') as file:
                 raw_dataset_str = file.read()
 
@@ -184,7 +184,7 @@ class text_dataset:
     def generate_dataset(self, feature_steps, prediction_steps):
         """
         Description:
-            Loads, conducts basic token preprocessing and generates the feature and target tensors.
+            Loads raw dataset, conducts basic token preprocessing and generates the feature and target tensors.
         """
 
         self.dataset_seq_str = tokenize(self.raw_dataset_str)
@@ -221,7 +221,7 @@ class text_dataset:
             self.X_val, self.y_val = separateXy(self.val_set)
             self.X_test, self.y_test = separateXy(self.test_set)
 
-        else: # Excluded a test set
+        else: # Excluded the test set
             self.train_set, self.val_set = torch.utils.data.random_split(self.dataset, self.split_fractions[:2], generator=torch.Generator().manual_seed(42))
 
             self.n_train = len(self.train_set)

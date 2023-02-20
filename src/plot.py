@@ -64,7 +64,7 @@ def plot_frequency_histogram(freqs, n_groups = 40):
         Segments frequency list and shows frequency histogram.
 
     Input:
-        <freqs>: Type: <list>. Contains the frequency of each one of its indices.
+        <freqs>: Type: <list>. Contains each token's frequency.
         <n_groups>: Type: <int>. The number of grouped indices.
     '''
 
