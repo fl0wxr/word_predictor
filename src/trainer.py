@@ -19,7 +19,7 @@ class rnn_trainer0:
         """
         Inputs:
             <model_>: Type: <torch.nn.module>. Specifies the trained model's architecture and parameters.
-            <data>: Type: <class>. Contains all the dataset's information.
+            <data>: Type: <class>. Contains all the necessary dataset's information.
             <device>: Type: torch.device.
         """
 
@@ -31,7 +31,7 @@ class rnn_trainer0:
         self.data = data
         self.model = model_
 
-        self.ckp_freq = 1
+        self.bkp_freq = 1
         self.scheduled_checkpoints = {10, 50, 200, 600, 1000, 5000}
 
         self.training_dir_path, self.training_format = '../training/', '.pt'
@@ -180,13 +180,13 @@ class rnn_trainer0:
             figure_.fig.savefig(self.training_dir_path + self.model.name + '_ep' + str(epoch))
 
         ## Latest frequent backups
-        if (epoch != 0) and ((epoch % self.ckp_freq) == 0):
+        if (epoch != 0) and ((epoch % self.bkp_freq) == 0):
             training_information = get_training_information(epoch, metrics, thparams, t_before_training)
             live_training_backup_path = self.training_dir_path + self.model.name + '_live_ep' + str(epoch) + self.training_format
-            prev_live_training_backup_path = self.training_dir_path + self.model.name + '_live_ep' + str(epoch-self.ckp_freq) + self.training_format
+            prev_live_training_backup_path = self.training_dir_path + self.model.name + '_live_ep' + str(epoch-self.bkp_freq) + self.training_format
             if os.path.exists(prev_live_training_backup_path):
                 os.remove(prev_live_training_backup_path)
-            if os.path.exists(self.training_dir_path + self.model.name + '_live_ep' + str(epoch-self.ckp_freq) + '.png'):
-                os.remove(self.training_dir_path + self.model.name + '_live_ep' + str(epoch-self.ckp_freq) + '.png')
+            if os.path.exists(self.training_dir_path + self.model.name + '_live_ep' + str(epoch-self.bkp_freq) + '.png'):
+                os.remove(self.training_dir_path + self.model.name + '_live_ep' + str(epoch-self.bkp_freq) + '.png')
             torch.save(training_information, live_training_backup_path)
             figure_.fig.savefig(self.training_dir_path + self.model.name + '_live_ep' + str(epoch))

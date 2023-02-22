@@ -21,10 +21,10 @@ class embed(nn.Module):
     def forward(self, inputs):
         '''
         Inputs:
-            <inputs>: Type: torch.Tensor. Shape: (n_examples, n_steps, vocab_size).
+            <inputs>: Type: <torch.Tensor>. Shape: (n_examples, n_steps, vocab_size).
 
         Outputs:
-            <outputs>: Type: torch.Tensor. Shape: (n_examples, n_steps, n_emb)
+            <outputs>: Type: <torch.Tensor>. Shape: (n_examples, n_steps, n_emb)
         '''
 
         outputs = []
@@ -57,11 +57,11 @@ class vanilla_recurrent(nn.Module):
     def forward(self, inputs, H_t=None):
         """
         Inputs:
-            <inputs>: Type: torch.Tensor. Shape: (n_minibatch, n_steps, n_inp).
-            <H_t>: Type: torch.Tensor. Shape: (n_minibatch, n_hid).
+            <inputs>: Type: <torch.Tensor>. Shape: (n_minibatch, n_steps, n_inp).
+            <H_t>: Type: <torch.Tensor>. Shape: (n_minibatch, n_hid).
 
         Outputs:
-            <outputs>: Type: torch.Tensor. Shape: (n_minibatch, n_steps, n_hid).
+            <outputs>: Type: <torch.Tensor>. Shape: (n_minibatch, n_steps, n_hid).
         """
 
         if H_t is None:
@@ -120,11 +120,11 @@ class lstm1(nn.Module):
 class gru1(nn.Module):
 
     def __init__(self, n_inp, n_hid, device, dropout_rate=0.0):
-        
+
         super().__init__()
 
         self.device = device
-        
+
         self.n_inp = n_inp
         self.n_hid = n_hid
         
@@ -142,6 +142,17 @@ class gru1(nn.Module):
         self.W_xh, self.W_hh, self.b_h = triple() # Candidate hidden state
 
     def forward(self, inputs, H_t=None, train=False):
+        '''
+        Inputs:
+            <inputs>: Type: <torch.Tensor>. Shape: (n_examples, n_steps, vocab_size).
+            <train>: Type: <bool>. Toggles training/predicting.
+            <H_t>: Type: <torch.Tensor>. Shape: (n_examples, n_hid). The initial hidden state. Default is None.
+
+        Outputs:
+            <outputs_>: Type: <tuple(<outputs>, <H_t>)>. Assuming that T=n_steps.
+                <outputs>: <torch.Tensor>. Shape: (n_examples, n_steps, n_emb). Hidden states for all t=0,1,...,T.
+                <H_t>: <torch.Tensor>. Shape: (n_examples, n_emb). Final hidden state at t=T.
+        '''
 
         if H_t is None:
             # Initial state with shape: (self.batch_size, self.n_hid)
