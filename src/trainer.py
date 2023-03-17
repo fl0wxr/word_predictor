@@ -115,9 +115,9 @@ class rnn_trainer0:
             delta_t = round(t_f-t_i)
             est_next_epoch_time = datetime.datetime.utcfromtimestamp(t_f) + datetime.timedelta(seconds=delta_t)
 
-            print('[Epoch %d @ %s]'%(epoch, datetime.datetime.utcfromtimestamp(t_f).strftime("%H:%M:%S")))
+            print('[Epoch %d @ UTC %s]'%(epoch, datetime.datetime.utcfromtimestamp(t_f).strftime("%H:%M:%S")))
             print('Train loss: %f | Val loss: %f | Train acc: %f | Val acc: %f'%(train_loss_hat, val_loss, train_accuracy_hat, val_accuracy))
-            print('Δt: %ds | Δ Val loss: %f\nNext epoch @ ~%s'%(delta_t, val_loss-val_loss_prev, est_next_epoch_time.strftime("%H:%M:%S")))
+            print('Δt: %ds | Δ Val loss: %f\nNext epoch @ ~UTC %s'%(delta_t, val_loss-val_loss_prev, est_next_epoch_time.strftime("%H:%M:%S")))
 
             val_loss_prev = deepcopy(val_loss)
 
